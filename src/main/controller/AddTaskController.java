@@ -6,7 +6,11 @@ import javafx.fxml.FXML;
 import model.Task;
 import ui.ListView;
 import ui.PomoTodoApp;
+import utility.JsonFileIO;
 import utility.Logger;
+
+import java.util.List;
+
 
 // Controller class for AddTask UI
 public class AddTaskController {
@@ -26,7 +30,10 @@ public class AddTaskController {
         Logger.log("AddTaskController", "Add new Task with description " + description.getText());
         try {
             Task task = new Task(description.getText());
-            PomoTodoApp.getTasks().add(task);
+            //PomoTodoApp.getTasks().add(task);
+            List<Task> listOfTask = PomoTodoApp.getTasks();
+            listOfTask.add(task);
+            JsonFileIO.write(listOfTask);
         } catch (RuntimeException e) {
             Logger.log("AddTaskController", "Failed to create a new task from description " + description.getText());
         } finally {

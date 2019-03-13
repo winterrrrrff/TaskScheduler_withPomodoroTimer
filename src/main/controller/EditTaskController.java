@@ -11,6 +11,7 @@ import model.Tag;
 import model.Task;
 import ui.ListView;
 import ui.PomoTodoApp;
+import utility.JsonFileIO;
 import utility.Logger;
 
 import java.net.URL;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static ui.PomoTodoApp.setScene;
 
 // Controller class for EditTask UI
 public class EditTaskController implements Initializable {
@@ -122,12 +125,16 @@ public class EditTaskController implements Initializable {
     // EFFECTS: save the updates on UI to task
     @FXML
     public void saveTask() {
+        int indexOfCurrentTask = JsonFileIO.read().indexOf(task);
         saveDescription();
         saveDueDate();
         saveStatus();
         savePriority();
         saveTags();
         Logger.log("EditTaskController", "Save task:\n" + task);
+        List<Task> listOfTask = JsonFileIO.read();
+        listOfTask.set(indexOfCurrentTask,task);
+        JsonFileIO.write(listOfTask);
     }
     
     // REQUIRES: task != null
@@ -187,7 +194,8 @@ public class EditTaskController implements Initializable {
     public void cancelEditTask() {
         Logger.log("EditTaskController", "Edit Task cancelled.");
         Logger.log("EditTaskController", "Close application");
-        Platform.exit();
+        setScene(new ListView(JsonFileIO.read()));
+        //Platform.exit();
     }
     
     @Override

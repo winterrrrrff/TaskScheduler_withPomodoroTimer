@@ -24,7 +24,7 @@ public class ToolbarController implements Initializable {
     private static final String viewOptionsPopUpFXML = "resources/fxml/ViewOptionsPopUp.fxml";
     private File toolbarPopUpFxmlFile = new File(toolbarPopUpFXML);
     private File viewOptionsPopUpFxmlFile = new File(viewOptionsPopUpFXML);
-    
+
     @FXML
     private JFXHamburger viewOptionsPopUpBurger;
     @FXML
@@ -36,7 +36,7 @@ public class ToolbarController implements Initializable {
 
     private JFXPopup toolbarPopUp;
     private JFXPopup viewPopUp;
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadToolbarPopUp();
@@ -44,7 +44,7 @@ public class ToolbarController implements Initializable {
         loadViewOptionsPopUp();
         loadViewOptionsPopUpActionListener();
     }
-    
+
     // EFFECTS: load options pop up (setting, exit)
     private void loadToolbarPopUp() {
         try {
@@ -55,7 +55,7 @@ public class ToolbarController implements Initializable {
             throw new RuntimeException(exception);
         }
     }
-    
+
     // EFFECTS: load view selector pop up (list view, priority view, status view)
     private void loadViewOptionsPopUp() {
         try {
@@ -66,7 +66,7 @@ public class ToolbarController implements Initializable {
             throw new RuntimeException(exception);
         }
     }
-    
+
     // EFFECTS: show view selector pop up when its icon is clicked
     private void loadViewOptionsPopUpActionListener() {
         viewOptionsPopUpBurger.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -80,7 +80,7 @@ public class ToolbarController implements Initializable {
             }
         });
     }
-    
+
     // EFFECTS: show options pop up when its icon is clicked
     private void loadToolbarPopUpActionListener() {
         toolbarPopUpBurger.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -94,50 +94,50 @@ public class ToolbarController implements Initializable {
             }
         });
     }
-    
+
     // Inner class: view selector pop up controller
     class ViewOptionsPopUpController {
         @FXML
         private JFXListView<?> viewPopUpList;
-        
+
         @FXML
         private void submit() {
             int selectedIndex = viewPopUpList.getSelectionModel().getSelectedIndex();
             switch (selectedIndex) {
                 case 0:
-                    Logger.log("TodobarActionsPopUpController", "List View Selected");
+                    Logger.log("ToolbarViewOptionsPopUpController", "List View Selected");
                     break;
                 case 1:
-                    Logger.log("TodobarActionsPopUpController", "Priority View is not supported in this version!");
+                    Logger.log("ToolbarViewOptionsPopUpController", "Priority View is not supported in this version!");
                     break;
                 case 2:
-                    Logger.log("TodobarActionsPopUpController", "Status View is not supported in this version!");
+                    Logger.log("ToolbarViewOptionsPopUpController", "Status View is not supported in this version!");
                     break;
                 default:
-                    Logger.log("TodobarActionsPopUpController", "No action is implemented for the selected option");
+                    Logger.log("ToolbarViewOptionsPopUpController", "No action is implemented for the selected option");
             }
             viewPopUp.hide();
         }
     }
-    
+
     // Inner class: option pop up controller
     class ToolbarPopUpController {
         @FXML
         private JFXListView<?> toolbarPopUpList;
-        
+
         @FXML
         private void submit() {
             int selectedIndex = toolbarPopUpList.getSelectionModel().getSelectedIndex();
             switch (selectedIndex) {
                 case 0:
-                    Logger.log("TodobarOptionsPopUpController", "Setting is not supported in this version");
+                    Logger.log("ToolbarOptionsPopUpController", "Setting is not supported in this version");
                     break;
                 case 1:
-                    Logger.log("TodobarOptionsPopUpController", "Close application");
+                    Logger.log("ToolbarOptionsPopUpController", "Close application");
                     Platform.exit();
                     break;
                 default:
-                    Logger.log("TodobarOptionsPopUpController", "No action is implemented for the selected option");
+                    Logger.log("ToolbarOptionsPopUpController", "No action is implemented for the selected option");
             }
             toolbarPopUp.hide();
         }
