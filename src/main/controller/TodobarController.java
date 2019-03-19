@@ -8,12 +8,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import model.Task;
+import pomodoro.PomodoroApp;
 import ui.EditTask;
 import ui.ListView;
 import utility.JsonFileIO;
@@ -135,10 +134,18 @@ public class TodobarController implements Initializable {
                     Logger.log("ActionPopUpController","The DONE action is not implemented");
                     break;
                 default:
-                    Logger.log("ActionPopUpController", "No action is implemented for the selected option");
+//                    Logger.log("ActionPopUpController", "No action is implemented for the selected option");
+//                    PomodoroApp.main(s);
+                    openPomodoro();
             }
             actionPopUp.hide();
         }
+    }
+
+    private void openPomodoro() {
+        Logger.log("ActionPopUpController", "No action is implemented for the selected option");
+        String[] s = "sampleStringArray".split("");
+        PomodoroApp.main(s);
     }
 
     private class OptionPopUpController {
