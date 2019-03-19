@@ -152,7 +152,6 @@ public class TodobarController implements Initializable {
                 case 0:
                     Logger.log("OptionPopUpController", "The task has been edited");
                     setScene(new EditTask(task));
-
                     break;
                 case 1:
                     Logger.log("OptionPopUpController", "The task has been deleted");
