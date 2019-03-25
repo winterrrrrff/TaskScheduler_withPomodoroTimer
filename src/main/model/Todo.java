@@ -35,6 +35,6 @@ public abstract class Todo {
     //     the percentage of completion (rounded down to the closest integer).
     public abstract int getProgress();
 
-    public abstract int getNumberOfTasks();
+    //public abstract int getNumberOfTasks();
 
 }

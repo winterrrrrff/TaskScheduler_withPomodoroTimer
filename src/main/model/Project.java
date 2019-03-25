@@ -41,6 +41,9 @@ public class Project extends Todo {
     // EFFECTS: removes task from this project
     //   throws NullArgumentException when task is null
     public void remove(Todo task) {
+        if (task == null) {
+            throw new NullArgumentException();
+        }
         if (contains(task)) {
             tasks.remove(task);
         }
@@ -84,7 +87,6 @@ public class Project extends Todo {
     }
 
     // EFFECTS: returns the number of tasks (and sub-projects) in this project
-    @Override
     public int getNumberOfTasks() {
         return tasks.size();
     }

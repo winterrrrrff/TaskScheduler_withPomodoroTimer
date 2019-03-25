@@ -262,7 +262,7 @@ public class Task extends Todo {
         return Objects.hash(description, dueDate, priority, status);
     }
 
-    public int getNumberOfTasks() {
-        return 1;
-    }
+//    public int getNumberOfTasks() {
+//        return 1;
+//    }
 }
