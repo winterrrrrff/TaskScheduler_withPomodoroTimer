@@ -50,7 +50,7 @@ public class PomodoroApp extends JFrame {
         private JLabel label;
         private Timer timer;
 
-        private Duration duration = Duration.ofMinutes(25);
+        private Duration duration  = Duration.ofMinutes(25);
 
         public TestPane() {
             setLayout(new GridBagLayout());
