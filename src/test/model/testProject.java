@@ -309,7 +309,7 @@ public class testProject {
 //        project2.add(new Task("hello"));
 //        project2.add(projectYo);
 //        System.out.println(project2.getNumberOfTasks());
-//        assertEquals(31,project2.getProgress());
+//        assertEquals(15,project2.getProgress());
 //    }
 
 

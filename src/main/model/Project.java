@@ -29,7 +29,10 @@ public class Project extends Todo {
     // EFFECTS: task is added to this project (if it was not already part of it)
     //   throws NullArgumentException when task is null
     public void add(Todo task) {
-        if (!contains(task)) {
+        if (task == null) {
+            throw new NullArgumentException();
+        }
+        if (!contains(task) && !task.equals(this)) {
             tasks.add(task);
         }
     }
@@ -60,20 +63,14 @@ public class Project extends Todo {
 //     the value returned is the average of the percentage of completion of
 //     all the tasks and sub-projects in this project.
     public int getProgress() {
-        int totalProject = 1;
         if (getNumberOfTasks() == 0) {
             return 0;
-        }
-        for (Todo t : tasks) {
-            if (t instanceof Project) {
-                totalProject += 1;
-            }
         }
         int totalProgress = 0;
         for (Todo t : tasks) {
             totalProgress += t.getProgress();
         }
-        return  (totalProgress / (getNumberOfTasks() / totalProject));
+        return totalProgress / getNumberOfTasks();
     }
 
 
@@ -89,11 +86,7 @@ public class Project extends Todo {
     // EFFECTS: returns the number of tasks (and sub-projects) in this project
     @Override
     public int getNumberOfTasks() {
-        int numOfTask = 0;
-        for (Todo t : tasks) {
-            numOfTask += t.getNumberOfTasks();
-        }
-        return numOfTask;
+        return tasks.size();
     }
 
 
