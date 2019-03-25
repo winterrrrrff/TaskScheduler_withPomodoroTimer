@@ -1,7 +1,6 @@
 package controller;
 
 import com.jfoenix.controls.*;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,7 +9,6 @@ import model.Status;
 import model.Tag;
 import model.Task;
 import ui.ListView;
-import ui.PomoTodoApp;
 import utility.JsonFileIO;
 import utility.Logger;
 

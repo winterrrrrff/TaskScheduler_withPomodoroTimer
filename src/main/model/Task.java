@@ -76,6 +76,9 @@ public class Task extends Todo {
     //  throws EmptyStringException if tagName is null or empty
     // Note: no two tags are to have the same name
     public void addTag(String tagName) {
+        if (tagName == null || tagName == "") {
+            throw new EmptyStringException();
+        }
         addTag(new Tag(tagName));
     }
 
@@ -83,6 +86,9 @@ public class Task extends Todo {
     // EFFECTS: adds tag to this task if it is not already exist
     //  throws NullArgumentException if tag is null
     public void addTag(Tag tag) {
+        if (tag == null) {
+            throw new NullArgumentException();
+        }
         if (!containsTag(tag)) {
             tags.add(tag);
             tag.addTask(this);
@@ -93,6 +99,9 @@ public class Task extends Todo {
     // EFFECTS: removes the tag with name tagName from this task
     //  throws EmptyStringException if tagName is empty or null
     public void removeTag(String tagName) {
+        if (tagName == null || tagName == "") {
+            throw new EmptyStringException();
+        }
         removeTag(new Tag(tagName));
     }
 
@@ -100,6 +109,9 @@ public class Task extends Todo {
     // EFFECTS: removes tag from this task
     //  throws NullArgumentException if tag is null
     public void removeTag(Tag tag) {
+        if (tag == null) {
+            throw new NullArgumentException();
+        }
         if (containsTag(tag)) {
             tags.remove(tag);
             tag.removeTask(this);
