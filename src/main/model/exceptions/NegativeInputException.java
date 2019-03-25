@@ -1,4 +1,4 @@
-package model.exception;
+package model.exceptions;
 
 public class NegativeInputException extends IllegalArgumentException {
 }

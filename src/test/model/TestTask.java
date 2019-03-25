@@ -270,7 +270,7 @@ public class TestTask {
         try {
             testTask.setPriority(new Priority(3));
         } catch (InvalidPriorityLevelException e) {
-            fail("Shouldn't be catching exception.");
+            fail("Shouldn't be catching exceptions.");
         }
     }
 

@@ -1,7 +1,7 @@
 package model;
 
-import model.exception.InvalidProgressException;
-import model.exception.NegativeInputException;
+import model.exceptions.InvalidProgressException;
+import model.exceptions.NegativeInputException;
 import model.exceptions.EmptyStringException;
 import model.exceptions.NullArgumentException;
 import parsers.Parser;
