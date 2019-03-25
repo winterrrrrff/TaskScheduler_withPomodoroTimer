@@ -6,6 +6,7 @@ public class NegativeInputException extends IllegalArgumentException {
         super();
     }
 
+    
     public NegativeInputException(String errorMsg) {
         super(errorMsg);
     }
