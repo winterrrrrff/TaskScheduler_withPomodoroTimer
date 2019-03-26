@@ -145,6 +145,7 @@ public class Project extends Todo implements Iterable<Todo> {
             if (!hasNext() && priorityNum > 4) {
                 throw new NoSuchElementException();
             }
+            
             Todo next = getNextTodo();
             index += 1;
             return next;
