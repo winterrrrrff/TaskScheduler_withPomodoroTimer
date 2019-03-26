@@ -571,6 +571,11 @@ public class TestProject {
     }
 
     @Test
+    void hash2() {
+        project.hashCode();
+    }
+
+    @Test
     void whileTest() {
         int x = 0;
         while (x < 3) {
@@ -578,6 +583,15 @@ public class TestProject {
             x++;
         }
         System.out.println(project.getPriority());
+    }
+
+    @Test
+    void testGetTask() {
+        try {
+            project.getTasks();
+        } catch (UnsupportedOperationException e) {
+            //
+        }
     }
 
 }
