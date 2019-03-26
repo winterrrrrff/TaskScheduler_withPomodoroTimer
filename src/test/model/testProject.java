@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class testProject {
+public class TestProject {
 
     private Project project;
     private Task task;
@@ -34,6 +34,27 @@ public class testProject {
         project.add(task);
         project.add(task);
         assertEquals(1, project.getNumberOfTasks());
+    }
+
+    @Test
+    void testAdd3() {
+        Todo task1 = new Task("1");
+        task1.setPriority(new Priority(1));
+        Todo task2 = new Task("2");
+        task2.setPriority(new Priority(3));
+        Todo task3 = new Task("3");
+        Todo project1 = new Project("a");
+        Todo project2 = new Project("b");
+        project2.setPriority(new Priority(2));
+        Todo project3 = new Project("c");
+        project3.setPriority(new Priority(4));
+        project.add(task2);
+        project.add(project3);
+        project.add(task3);
+        project.add(project1);
+        project.add(project2);
+        project.add(task1);
+        assertEquals(6,project.getNumberOfTasks());
     }
 
     @Test
@@ -439,13 +460,13 @@ public class testProject {
         project.add(new Project("1231231"));
         Iterator<Todo> iterator = project.iterator();
         assertTrue(iterator.hasNext());
-        System.out.println(iterator.next());
+        System.out.println(iterator.next().getDescription());
         assertTrue(iterator.hasNext());
-        System.out.println(iterator.next());
+        System.out.println(iterator.next().getDescription());
         assertTrue(iterator.hasNext());
-        System.out.println(iterator.next());
+        System.out.println(iterator.next().getDescription());
         assertTrue(iterator.hasNext());
-        System.out.println(iterator.next());
+        System.out.println(iterator.next().getDescription());
         assertFalse(iterator.hasNext());
     }
 
@@ -465,7 +486,7 @@ public class testProject {
         project2.setPriority(new Priority(3));
         project.add(project2);
         for (Todo t : project) {
-            System.out.println(t.getPriority());
+            System.out.println(t.getDescription());
         }
     }
 
@@ -479,14 +500,84 @@ public class testProject {
         Project project1 = new Project("a");
         Project project2 = new Project("b");
         project2.setPriority(new Priority(2));
-        project.add(task1);
-        project.add(task2);
+        Project project3 = new Project("c");
+        project3.setPriority(new Priority(4));
         project.add(task3);
         project.add(project1);
         project.add(project2);
+        project.add(task1);
+        project.add(task2);
+        project.add(project3);
         for (Todo t : project)
-            System.out.println(t.getPriority());
+            System.out.println(t.getDescription());
 
+    }
+
+    @Test
+    void realTest2() {
+        Task task1 = new Task("1");
+        task1.setPriority(new Priority(1));
+        Task task2 = new Task("2");
+        task2.setPriority(new Priority(3));
+        Task task3 = new Task("3");
+        Project project1 = new Project("a");
+        Project project2 = new Project("b");
+        project2.setPriority(new Priority(2));
+        Project project3 = new Project("c");
+        project3.setPriority(new Priority(4));
+        project.add(task2);
+        project.add(project3);
+        project.add(task3);
+        project.add(project1);
+        project.add(project2);
+        project.add(task1);
+        for (Todo t : project)
+            System.out.println(t.getDescription());
+    }
+
+    @Test
+    void realTest3() {
+        Todo task1 = new Task("1");
+        task1.setPriority(new Priority(1));
+        Todo task2 = new Task("2");
+        task2.setPriority(new Priority(3));
+        Todo task3 = new Task("3");
+        Todo project1 = new Project("a");
+        Todo project2 = new Project("b");
+        project2.setPriority(new Priority(2));
+        Todo project3 = new Project("c");
+        project3.setPriority(new Priority(4));
+        project.add(task2);
+        project.add(project3);
+        project.add(task3);
+        project.add(project1);
+       // project.add(project2);
+        //project.add(task1);
+        Iterator<Todo> iterator = project.iterator();
+        assertTrue(iterator.hasNext());
+        System.out.println(iterator.next().getDescription());
+        assertTrue(iterator.hasNext());
+        System.out.println(iterator.next().getDescription());
+        assertTrue(iterator.hasNext());
+        System.out.println(iterator.next().getDescription());
+        assertTrue(iterator.hasNext());
+        System.out.println(iterator.next().getDescription());
+       // assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    void hash() {
+        task.hashCode();
+    }
+
+    @Test
+    void whileTest() {
+        int x = 0;
+        while (x < 3) {
+            System.out.println(x);
+            x++;
+        }
+        System.out.println(project.getPriority());
     }
 
 }

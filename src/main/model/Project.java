@@ -31,7 +31,7 @@ public class Project extends Todo implements Iterable<Todo> {
         if (task == null) {
             throw new NullArgumentException();
         }
-        if (!contains(task) && !task.equals(this)) {
+        if (!contains(task)) {
             tasks.add(task);
         }
     }
@@ -59,11 +59,11 @@ public class Project extends Todo implements Iterable<Todo> {
         throw new UnsupportedOperationException();
     }
 
-
     //     EFFECTS: returns an integer between 0 and 100 which represents
 //     the percentage of completion (rounded down to the nearest integer).
 //     the value returned is the average of the percentage of completion of
 //     all the tasks and sub-projects in this project.
+
     public int getProgress() {
         if (getNumberOfTasks() == 0) {
             return 0;
@@ -133,20 +133,20 @@ public class Project extends Todo implements Iterable<Todo> {
 
         private int index = 0;
         private int priorityNum = 1;
-        private Priority currentPriority = new Priority(priorityNum);
+        private Priority currentPriority = new Priority(1);
 
         @Override
         public boolean hasNext() {
-            return index < tasks.size() && priorityNum < 5;
+            return index < tasks.size();
         }
 
         @Override
         public Todo next() {
-            if (!hasNext()) {
+            if (!hasNext() && priorityNum > 4) {
                 throw new NoSuchElementException();
             }
             Todo next = getNextTodo();
-            index++;
+            index += 1;
             return next;
         }
 
@@ -154,16 +154,18 @@ public class Project extends Todo implements Iterable<Todo> {
             while (index < tasks.size()) {
                 if (tasks.get(index).getPriority().equals(currentPriority)) {
                     return tasks.get(index);
-                }  else {
-                    index++;
+                } else {
+                    index += 1;
                 }
             }
             index = 0;
-            priorityNum++;
+            priorityNum += 1;
             currentPriority = new Priority(priorityNum);
             return getNextTodo();
         }
-
-
     }
+
+
+
 }
+
