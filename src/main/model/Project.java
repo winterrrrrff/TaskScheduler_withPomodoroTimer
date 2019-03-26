@@ -137,8 +137,7 @@ public class Project extends Todo implements Iterable<Todo> {
 
         @Override
         public boolean hasNext() {
-            // TODO: Check if this is right
-            return index <= tasks.size() - 1 && priorityNum < 5;
+            return index < tasks.size() && priorityNum < 5;
         }
 
         @Override

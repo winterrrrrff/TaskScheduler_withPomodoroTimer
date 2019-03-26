@@ -438,7 +438,6 @@ public class testProject {
         project.add(new Project("234"));
         project.add(new Project("1231231"));
         Iterator<Todo> iterator = project.iterator();
-
         assertTrue(iterator.hasNext());
         System.out.println(iterator.next());
         assertTrue(iterator.hasNext());
@@ -461,9 +460,32 @@ public class testProject {
         project.add(new Task("a"));
         project.add(new Project("234"));
         project.add(new Project("1231231"));
+        project.add(new Project("A"));
+        Project project2 = new Project("1x");
+        project2.setPriority(new Priority(3));
+        project.add(project2);
         for (Todo t : project) {
-            System.out.println(t.priority);
+            System.out.println(t.getPriority());
         }
+    }
+
+    @Test
+    void realTest() {
+        Task task1 = new Task("1");
+        task1.setPriority(new Priority(1));
+        Task task2 = new Task("2");
+        task2.setPriority(new Priority(3));
+        Task task3 = new Task("3");
+        Project project1 = new Project("a");
+        Project project2 = new Project("b");
+        project2.setPriority(new Priority(2));
+        project.add(task1);
+        project.add(task2);
+        project.add(task3);
+        project.add(project1);
+        project.add(project2);
+        for (Todo t : project)
+            System.out.println(t.getPriority());
 
     }
 

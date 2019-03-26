@@ -1,8 +1,6 @@
 package model;
 
-import model.exceptions.EmptyStringException;
-import model.exceptions.InvalidPriorityLevelException;
-import model.exceptions.NullArgumentException;
+import model.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import parsers.TagParser;
@@ -194,12 +192,23 @@ public class TestTask {
     }
 
     @Test
+    void getNameTest() {
+        assertEquals("Test Tag",testTag.getName());
+    }
+
+    @Test
     void testAddTagException1() {
         try {
             testTask.addTag("");
         } catch (EmptyStringException e) {
 
         }
+    }
+
+    @Test
+    void getDes11() {
+        Todo todo = new Project("a");
+        assertEquals("a",todo.getDescription());
     }
 
     @Test
@@ -369,8 +378,6 @@ public class TestTask {
         } catch (EmptyStringException e) {
             fail();
         }
-
-
     }
 
     @Test
@@ -508,6 +515,263 @@ public class TestTask {
         testTask.removeTag(testTag);
         assertFalse(testTag.containsTask(testTask));
         assertFalse(testTask.containsTag(testTag));
+    }
+
+    @Test
+    void testSetProgress1() {
+        testTask.setProgress(50);
+        assertEquals(50,testTask.getProgress());
+    }
+
+    @Test
+    void testSetProgress2() {
+        try {
+            testTask.setProgress(50);
+            assertEquals(50, testTask.getProgress());
+        } catch (NegativeInputException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void testSetProgress3() {
+        try {
+            testTask.setProgress(-50);
+            assertEquals(50, testTask.getProgress());
+        } catch (InvalidProgressException e) {
+            //
+        }
+    }
+
+    @Test
+    void testSetProgress4() {
+        try {
+            testTask.setProgress(1000);
+            assertEquals(50, testTask.getProgress());
+        } catch (InvalidProgressException e) {
+            //
+        }
+    }
+
+    void testException(int num) throws NegativeInputException {
+        if (num == 1) {
+            throw new NegativeInputException();
+        }
+    }
+
+    void testException5(int num) throws NegativeInputException {
+        if (num == 5) {
+            throw new NegativeInputException("Negative");
+        }
+    }
+
+    @Test
+    void emptyStringExceptionTest2() {
+        String testString = null;
+        try {
+            testTag = new Tag(testString);
+        } catch (EmptyStringException e) {
+        }
+    }
+
+    @Test
+    void testException5() {
+        try {
+            testException5(5);
+        } catch (NegativeInputException e) {
+            //
+        }
+    }
+
+    @Test
+    void testException1() {
+        try {
+            testException(1);
+            fail();
+        } catch (NegativeInputException e) {
+        }
+    }
+
+    @Test
+    void testException2() {
+        try {
+            testException(2);
+        } catch (NegativeInputException e) {
+            fail();
+        }
+    }
+
+    void testException2(int num) throws InvalidProgressException {
+        if (num == 1) {
+            throw new InvalidProgressException("Invalid");
+        }
+    }
+
+    @Test
+    void testException3() {
+        try {
+            testException2(1);
+            fail();
+        } catch (InvalidProgressException e) {
+        }
+    }
+
+    @Test
+    void testException4() {
+        try {
+            testException2(2);
+        } catch (InvalidProgressException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void testEqual1() {
+        Task task1 = new Task("Test");
+        Task task2 = new Task("Test");
+        assertTrue(task1.equals(task2));
+    }
+
+    @Test
+    void testEqual2() {
+        Task task1 = new Task("Test");
+        Task task2 = new Task("Test2");
+        assertFalse(task1.equals(task2));
+    }
+
+    @Test
+    void testContainsTag() {
+        Tag tag = null;
+        try {
+            assertFalse(testTask.containsTag(tag));
+        } catch (NullArgumentException e) {
+            //
+        }
+    }
+
+    @Test
+    void checkDes() {
+        Todo todo = new Task("Test");
+        assertEquals(todo.getDescription(),"Test");
+    }
+
+    @Test
+    void testtest1() {
+        testTask.equals(testTask);
+    }
+
+    @Test
+    void testtest2() {
+        assertFalse(testTask.equals(testTag));
+    }
+
+    @Test
+    void tag1() {
+        testTask.toString();
+    }
+
+    @Test
+    void desDes() {
+        Todo todo = new Project("Test");
+        assertEquals(todo.getDescription(),"Test");
+    }
+
+    @Test
+    void containTag() {
+        try {
+            testTask.containsTag("");
+        } catch (EmptyStringException e) {
+            //
+        }
+    }
+
+    @Test
+    void removeTag() {
+        try {
+            Tag tag = null;
+            testTask.removeTag(tag);
+        } catch (NullArgumentException e) {
+            //
+        }
+    }
+
+    @Test
+    void setEst1() {
+        testTask.setEstimatedTimeToComplete(10);
+        assertEquals(10,testTask.getEstimatedTimeToComplete());
+    }
+
+    @Test
+    void setEst2() {
+        try {
+            testTask.setEstimatedTimeToComplete(-11);
+        } catch (NegativeInputException e) {
+            //
+        }
+    }
+
+    @Test
+    void addTag123() {
+        try {
+            Tag tag = null;
+            testTask.addTag(tag);
+        } catch (NullArgumentException e) {
+            //
+        }
+    }
+
+    @Test
+    void addTag12() {
+        try {
+            Tag tag = new Tag("a");
+            testTask.addTag(tag);
+        } catch (NullArgumentException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void cons() {
+        try {
+            Task task = new Task("");
+        } catch (EmptyStringException e) {
+            //
+        }
+    }
+
+    @Test
+    void tagTest1() {
+        assertFalse(testTag.equals(testTask));
+    }
+
+    @Test
+    void tagTest2() {
+        Tag tag1 = new Tag("a");
+        Tag tag2 = new Tag("a");
+        assertTrue(tag1.equals(tag2));
+    }
+
+    @Test
+    void tagTest3() {
+        Tag tag1 = new Tag("a");
+        Tag tag2 = new Tag("b");
+        tag2.equals(testTag);
+        assertFalse(tag1.equals(tag2));
+    }
+
+    @Test
+    void test99() {
+        testTag.getTasks();
+    }
+
+    @Test
+    void containssss() {
+        try {
+            Task task = null;
+            testTag.containsTask(task);
+        } catch (NullArgumentException e) {
+            //
+        }
     }
 
 
