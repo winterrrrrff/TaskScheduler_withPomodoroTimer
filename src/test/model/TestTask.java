@@ -15,16 +15,18 @@ public class TestTask {
     private Task testTask;
     private Priority priority;
     private DueDate dueDate;
-    private TagParser tagParser;
+    private Project project;
     private Tag testTag;
+    private Task task;
 
     @BeforeEach
     public void constructor() {
-      //  tagParser = new TagParser();
         testTask = new Task("Test");
         priority = new Priority(1);
         dueDate = new DueDate();
         testTag = new Tag("Test Tag");
+        project = new Project("cpsc210 Project");
+        task = new Task("Project Phase1");
     }
 
     @Test
@@ -116,7 +118,7 @@ public class TestTask {
     }
 
     @Test
-    void testGetDescription() {
+    void testGetDescription2345() {
         assertEquals("Test", testTask.getDescription());
     }
 
@@ -183,7 +185,7 @@ public class TestTask {
     }
 
     @Test
-    void testConstruct3() {
+    void testConstruct3213123() {
         try {
             Task tryTask = new Task("a");
         } catch (EmptyStringException e) {
@@ -771,6 +773,487 @@ public class TestTask {
             testTag.containsTask(task);
         } catch (NullArgumentException e) {
             //
+        }
+    }
+
+    @Test
+    void test100() {
+        try {
+            Todo todo = new Task("s");
+            todo.setPriority(null);
+        } catch (NullArgumentException e) {
+            //
+        }
+    }
+
+    @Test
+    void containsTest1() {
+        try {
+            String str = null;
+            testTask.containsTag(str);
+        } catch (EmptyStringException e) {
+            //
+        }
+    }
+
+    @Test
+    void containsTest2() {
+        try {
+            String str = "";
+            testTask.containsTag(str);
+        } catch (EmptyStringException e) {
+            //
+        }
+    }
+
+    @Test
+    void testSameNameTag() {
+        Tag tag1 = new Tag("Test Tag");
+        assertEquals(tag1,testTag);
+    }
+
+    @Test
+    void testLowerCaseName() {
+        Tag tag1 = new Tag("test tag");
+        assertFalse(testTag.equals(tag1));
+    }
+
+    @Test
+    void testAddTask1() {
+        testTag.addTask(testTask);
+        assertEquals(1,testTag.getTasks().size());
+        assertTrue(testTag.containsTask(new Task("Test")));
+        assertTrue(testTask.containsTag(testTag));
+    }
+
+    @Test
+    void testAddTask2() {
+        testTag.addTask(testTask);
+        testTag.addTask(testTask);
+        testTag.addTask(new Task("Task1"));
+        testTag.addTask(new Task("Task2"));
+        assertEquals(3,testTag.getTasks().size());
+        assertTrue(testTag.containsTask(new Task("Task1")));
+        assertTrue(testTag.containsTask(new Task("Task2")));
+        assertTrue(testTask.containsTag(testTag));
+    }
+
+    @Test
+    void testRemoveTask1() {
+        testTag.addTask(new Task("Task1"));
+        testTag.addTask(new Task("Task2"));
+        testTag.addTask(new Task("Task3"));
+        testTag.addTask(testTask);
+        assertEquals(4,testTag.getTasks().size());
+        assertTrue(testTag.containsTask(new Task("Task2")));
+        testTag.removeTask(new Task("Task2"));
+        assertFalse(testTag.containsTask(new Task("Task2")));
+    }
+
+    @Test
+    void testRemoveTask2() {
+        testTag.addTask(new Task("Task1"));
+        testTag.addTask(testTask);
+        assertEquals(2,testTag.getTasks().size());
+        assertTrue(testTag.containsTask(testTask));
+        testTag.removeTask(testTask);
+        assertFalse(testTag.containsTask(testTask));
+    }
+
+
+    @Test
+    void testSameDescription123() {
+        Task task1 = new Task("Test");
+        assertEquals(task1,testTask);
+    }
+
+    @Test
+    void differentDescriptionSameOthers123() {
+        Task task1 = new Task("test task");
+        assertFalse(task1.equals(testTask));
+    }
+
+    @Test
+    void testSameDescriptionDifferentPriority12312() {
+        Task task1 = new Task("Test");
+        task1.setPriority(new Priority(1));
+        System.out.println(task1.getPriority());
+        System.out.println(testTask.getPriority());
+        assertFalse(task1.equals(testTask));
+        testTask.setPriority(new Priority(1));
+        assertEquals(task1,testTask);
+    }
+
+    @Test
+    void testDifferentDueDate123() {
+        DueDate dueDate = new DueDate(Calendar.getInstance().getTime());
+        Task task1 = new Task("Test");
+        task1.setDueDate(dueDate);
+        assertFalse(task1.equals(testTask));
+        testTask.setDueDate(dueDate);
+        assertEquals(task1,testTask);
+    }
+
+    @Test
+    void testDifferentStatus123() {
+        Task task1 = new Task("Test");
+        task1.setStatus(Status.DONE);
+        assertFalse(task1.equals(testTask));
+        testTask.setStatus(Status.DONE);
+        assertEquals(task1,testTask);
+    }
+
+    @Test
+    void testAddTag1123() {
+        testTask.addTag(testTag);
+        testTask.addTag("Test Tag");
+        assertEquals(1,testTask.getTags().size());
+        assertTrue(testTag.containsTask(new Task("Test")));
+        assertTrue(testTask.containsTag(testTag));
+    }
+
+    @Test
+    void testAddTag2213() {
+        testTask.addTag(testTag);
+        testTask.addTag("Test Tag");
+        testTask.addTag("Test2");
+        testTag.addTask(testTask);
+        assertEquals(2,testTask.getTags().size());
+        assertTrue(testTag.containsTask(testTask));
+        assertTrue(testTask.containsTag(new Tag("Test2")));
+        assertTrue(testTask.containsTag(testTag));
+    }
+
+    @Test
+    void testRemoveTag1() {
+        testTask.addTag("Tag1");
+        testTask.addTag("Tag2");
+        testTask.addTag("Tag3");
+        testTask.addTag(testTag);
+        assertEquals(4,testTask.getTags().size());
+        testTask.removeTag("Tag1");
+        assertEquals(3,testTask.getTags().size());
+        assertTrue(testTask.containsTag("Tag2"));
+        assertFalse(testTask.containsTag("Tag1"));
+    }
+
+    @Test
+    void testRemoveTag3213() {
+        testTask.addTag("Tag1");
+        testTask.addTag("Tag2");
+        testTask.addTag(new Tag("Tag3"));
+        testTask.addTag(testTag);
+        assertEquals(4,testTask.getTags().size());
+        testTask.removeTag("Tag1");
+        assertEquals(3,testTask.getTags().size());
+        assertTrue(testTask.containsTag("Tag2"));
+        assertFalse(testTask.containsTag("Tag1"));
+        testTask.removeTag("Tag3");
+        assertEquals(2,testTask.getTags().size());
+        assertTrue(testTag.containsTask(testTask));
+        testTask.removeTag(testTag);
+        assertFalse(testTag.containsTask(testTask));
+        assertFalse(testTask.containsTag(testTag));
+    }
+
+
+    @Test
+    void testAdd() {
+        project.add(task);
+        assertTrue(project.contains(task));
+        assertFalse(project.isCompleted());
+    }
+
+    @Test
+    void testAdd2() {
+        project.add(task);
+        project.add(task);
+        assertEquals(1,project.getNumberOfTasks());
+    }
+
+    @Test
+    void testRemove() {
+        Task task2 = new Task("test2");
+        project.add(task);
+        project.add(task2);
+        assertTrue(project.contains(task2));
+        project.remove(task2);
+        assertFalse(project.contains(task2));
+    }
+    @Test
+    void testRemove2() {
+        Task task2 = new Task("test2");
+        Task task3 = new Task("test3");
+        project.add(task);
+        project.add(task2);
+        assertTrue(project.contains(task2));
+        project.remove(task3);
+        assertTrue(project.contains(task2));
+    }
+
+
+    @Test
+    void testGetDescription() {
+        assertEquals("cpsc210 Project", project.getDescription());
+    }
+
+
+    @Test
+    void testGetProgress2() {
+        task.setStatus(Status.DONE);
+        task.setProgress(100);
+        project.add(task);
+        assertEquals(100,project.getProgress());
+    }
+
+    @Test
+    void testGetProgress3() {
+        task.setStatus(Status.UP_NEXT);
+        project.add(task);
+        assertEquals(0,project.getProgress());
+    }
+
+
+    @Test
+    void testGetNumOfTasks() {
+        assertEquals(0,project.getNumberOfTasks());
+        project.add(task);
+        assertEquals(1,project.getNumberOfTasks());
+    }
+
+    @Test
+    void testIsCompleted() {
+        assertFalse(project.isCompleted());
+        project.add(task);
+        assertFalse(project.isCompleted());
+    }
+
+
+    @Test
+    void testConstruct1213123() {
+        try {
+            Project tryProject = new Project("");
+        } catch (EmptyStringException e) {
+
+        }
+    }
+
+    @Test
+    void testConstruct2213123() {
+        String tryString = null;
+        try {
+            Project tryProject = new Project(tryString);
+        } catch (EmptyStringException e) {
+        }
+    }
+
+    @Test
+    void testConstruct3() {
+        try {
+            Project tryProject = new Project("a");
+        } catch (EmptyStringException e) {
+            fail("The description is provided. Shouldn't throw EmptyStringException.");
+        }
+    }
+
+    @Test
+    void testAddException1() {
+        Task tryTask = null;
+        try {
+            project.add(tryTask);
+        } catch (NullArgumentException e) {
+        }
+    }
+    @Test
+    void testAddException2() {
+        try {
+            project.add(task);
+        } catch (NullArgumentException e) {
+            fail("The task provided is not null!");
+        }
+    }
+
+    @Test
+    void testRemoveException1() {
+        Task tryTask = null;
+        try {
+            project.remove(tryTask);
+        } catch (NullArgumentException e) {
+        }
+    }
+
+    @Test
+    void testRemoveException2() {
+        try {
+            project.remove(task);
+        } catch (NullArgumentException e) {
+            fail("The task provided is not null!");
+        }
+    }
+
+    @Test
+    void testContainsException1() {
+        Task tryTask = null;
+        try {
+            project.contains(tryTask);
+        } catch (NullArgumentException e) {
+        }
+    }
+
+    @Test
+    void testContainsException2() {
+        try {
+            project.contains(task);
+        } catch (NullArgumentException e) {
+            fail("The task provided is not null!");
+        }
+    }
+
+    @Test
+    void usePrior() {
+        Todo todo = new Task("a");
+        todo.getPriority();
+    }
+
+    @Test
+    void testTagEqual() {
+        Tag tag = new Tag("a");
+        tag.equals(tag);
+    }
+
+
+    @Test
+    void setProgressTest1() {
+        try {
+            testTask.setProgress(1000);
+        } catch (InvalidProgressException e) {
+            //
+        }
+    }
+
+    @Test
+    void setProgressTest2() {
+        try {
+            testTask.setProgress(-1000);
+        } catch (InvalidProgressException e) {
+            //
+        }
+    }
+
+    @Test
+    void setProgressTest3() {
+        try {
+            testTask.setProgress(50);
+        } catch (InvalidProgressException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void setEstime1() {
+        try {
+            testTask.setEstimatedTimeToComplete(1000);
+        } catch (NegativeInputException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void setEstime2() {
+        try {
+            testTask.setEstimatedTimeToComplete(-1000);
+        } catch (NegativeInputException e) {
+            //
+        }
+    }
+
+    @Test
+    void addTagTry1() {
+        String str = null;
+        try {
+            testTask.addTag(str);
+        } catch (EmptyStringException e) {
+            //
+        }
+    }
+
+    @Test
+    void addTagTry2() {
+        String str = "";
+        try {
+            testTask.addTag(str);
+        } catch (EmptyStringException e) {
+            //
+        }
+    }
+
+    @Test
+    void addTagTry4() {
+        String str = "abc";
+        try {
+            testTask.addTag(str);
+        } catch (EmptyStringException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void addTagTry3() {
+        Tag tag = null;
+        try {
+            testTask.addTag(tag);
+        } catch (NullArgumentException e) {
+            //
+        }
+    }
+
+    @Test
+    void removeTagTry1() {
+        String str = null;
+        try {
+            testTask.removeTag(str);
+        } catch (EmptyStringException e) {
+            //
+        }
+    }
+
+    @Test
+    void removeTagTry2() {
+        String str = "";
+        try {
+            testTask.removeTag(str);
+        } catch (EmptyStringException e) {
+            //
+        }
+    }
+
+    @Test
+    void removeTagTry3() {
+        String str = "abc";
+        try {
+            testTask.removeTag(str);
+        } catch (EmptyStringException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void removeTagTry4() {
+        Tag tag = null;
+        try {
+            testTask.removeTag(tag);
+        } catch (NullArgumentException e) {
+            //
+        }
+    }
+
+    @Test
+    void removeTagTry5() {
+        Tag tag = new Tag("a");
+        try {
+            testTask.removeTag(tag);
+        } catch (NullArgumentException e) {
+            fail();
         }
     }
 

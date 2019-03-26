@@ -7,7 +7,7 @@ public abstract class Todo {
     protected String description;
     protected int progress;
     protected int etcHours;  // Estimated Time To Complete
-    private Priority priority;
+    protected Priority priority;
 
     // MODIFIES: this
     // EFFECTS: sets the "description" using the given description

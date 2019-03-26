@@ -2,13 +2,13 @@ package model;
 
 import model.exceptions.EmptyStringException;
 import model.exceptions.NullArgumentException;
+
 import java.util.*;
 
 // Represents a Project, a collection of zero or more Tasks
 // Class Invariant: no duplicated task; order of tasks is preserved
 public class Project extends Todo implements Iterable<Todo> {
 
-    private String description;
     private List<Todo> tasks;
 
     // MODIFIES: this
@@ -17,10 +17,6 @@ public class Project extends Todo implements Iterable<Todo> {
     //  throws EmptyStringException if description is null or empty
     public Project(String description) {
         super(description);
-        if (description == null || description.length() == 0) {
-            throw new EmptyStringException("Cannot construct a project with no description");
-        }
-        this.description = description;
         tasks = new ArrayList<>();
     }
 
@@ -31,7 +27,7 @@ public class Project extends Todo implements Iterable<Todo> {
         if (task == null) {
             throw new NullArgumentException();
         }
-        if (!contains(task)) {
+        if (!contains(task) && !task.equals(this)) {
             tasks.add(task);
         }
     }
@@ -46,11 +42,6 @@ public class Project extends Todo implements Iterable<Todo> {
         if (contains(task)) {
             tasks.remove(task);
         }
-    }
-
-    // EFFECTS: returns the description of this project
-    public String getDescription() {
-        return description;
     }
 
     // EFFECTS: returns an unmodifiable list of tasks in this project.
@@ -134,10 +125,24 @@ public class Project extends Todo implements Iterable<Todo> {
         private int index = 0;
         private int priorityNum = 1;
         private Priority currentPriority = new Priority(1);
+        private int numOfElement = 0;
+
 
         @Override
         public boolean hasNext() {
-            return index < tasks.size() && priorityNum < 5;
+            return index < tasks.size() && priorityNum < 5 && numOfElement < tasks.size();
+        }
+
+        public void reset(boolean check) {
+            if (!check || !hasNext()) {
+                priorityNum++;
+                index = 0;
+            }
+            if (priorityNum <= 4) {
+                currentPriority = new Priority(priorityNum);
+            } else {
+                currentPriority = null;
+            }
         }
 
         @Override
@@ -145,27 +150,28 @@ public class Project extends Todo implements Iterable<Todo> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-
             Todo next = getNextTodo();
             index++;
+            numOfElement++;
+            reset(true);
             return next;
         }
 
         private Todo getNextTodo() {
-            while (index < tasks.size()) {
+            while (hasNext()) {
                 if (tasks.get(index).getPriority().equals(currentPriority)) {
                     return tasks.get(index);
                 } else {
                     index++;
                 }
             }
-            index = 0;
-            priorityNum++;
-            currentPriority = new Priority(priorityNum);
+            reset(false);
             return getNextTodo();
-        }
-    }
 
+        }
+
+
+    }
 
 
 }
