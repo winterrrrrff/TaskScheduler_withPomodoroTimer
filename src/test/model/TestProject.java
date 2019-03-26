@@ -551,7 +551,7 @@ public class TestProject {
         project.add(project3);
         project.add(task3);
         project.add(project1);
-       // project.add(project2);
+        // project.add(project2);
         //project.add(task1);
         Iterator<Todo> iterator = project.iterator();
         assertTrue(iterator.hasNext());
@@ -562,7 +562,7 @@ public class TestProject {
         System.out.println(iterator.next().getDescription());
         assertTrue(iterator.hasNext());
         System.out.println(iterator.next().getDescription());
-       // assertFalse(iterator.hasNext());
+        // assertFalse(iterator.hasNext());
     }
 
     @Test
@@ -581,5 +581,3 @@ public class TestProject {
     }
 
 }
-
-
