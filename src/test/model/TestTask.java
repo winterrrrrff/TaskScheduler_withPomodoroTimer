@@ -428,8 +428,12 @@ public class TestTask {
     @Test
     void testSameDescriptionDifferentPriority() {
         Task task1 = new Task("Test");
+        System.out.println(task1.getPriority());
+        System.out.println(testTask.getPriority());
         task1.setPriority(new Priority(1));
-        assertFalse(task1.equals(testTask));
+        System.out.println(task1.getPriority());
+        assertFalse(task1.getPriority().equals(testTask.getPriority()));
+        System.out.println(task1.equals(testTask));
         testTask.setPriority(new Priority(1));
         assertEquals(task1,testTask);
     }

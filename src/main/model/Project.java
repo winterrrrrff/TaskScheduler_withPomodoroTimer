@@ -2,13 +2,12 @@ package model;
 
 import model.exceptions.EmptyStringException;
 import model.exceptions.NullArgumentException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 // Represents a Project, a collection of zero or more Tasks
 // Class Invariant: no duplicated task; order of tasks is preserved
-public class Project extends Todo {
+public class Project extends Todo implements Iterable<Todo> {
+
     private String description;
     private List<Todo> tasks;
 
@@ -61,7 +60,7 @@ public class Project extends Todo {
     }
 
 
-//     EFFECTS: returns an integer between 0 and 100 which represents
+    //     EFFECTS: returns an integer between 0 and 100 which represents
 //     the percentage of completion (rounded down to the nearest integer).
 //     the value returned is the average of the percentage of completion of
 //     all the tasks and sub-projects in this project.
@@ -125,44 +124,47 @@ public class Project extends Todo {
     }
 
 
+    @Override
+    public Iterator<Todo> iterator() {
+        return new TodoIterator();
+    }
 
-//    // EFFECTS: returns an integer between 0 and 100 which represents
-//    //     the percentage of completed tasks (rounded down to the closest integer).
-//    //     returns 100 if this project has no tasks!
-//    public int getProgress() {
-//        int numerator = getNumberOfCompletedTasks();
-//        int denominator = getNumberOfTasks();
-//        if (numerator == denominator) {
-//            return 100;
-//        } else {
-//            return (int) Math.floor(numerator * 100.0 / denominator);
-//        }
-//    }
+    private class TodoIterator implements Iterator<Todo> {
+
+        private int index = 0;
+        private int priorityNum = 1;
+        private Priority currentPriority = new Priority(priorityNum);
+
+        @Override
+        public boolean hasNext() {
+            // TODO: Check if this is right
+            return index <= tasks.size() - 1 && priorityNum < 5;
+        }
+
+        @Override
+        public Todo next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            Todo next = getNextTodo();
+            index++;
+            return next;
+        }
+
+        private Todo getNextTodo() {
+            while (index < tasks.size()) {
+                if (tasks.get(index).getPriority().equals(currentPriority)) {
+                    return tasks.get(index);
+                }  else {
+                    index++;
+                }
+            }
+            index = 0;
+            priorityNum++;
+            currentPriority = new Priority(priorityNum);
+            return getNextTodo();
+        }
 
 
-
-       // EFFECTS: returns true if every task in this project is completed, and false otherwise
-    //      //     If this project has no tasks, return false.
-//    public boolean isCompleted() {
-//        return getNumberOfTasks() != 0 && getNumberOfCompletedTasks() == getNumberOfTasks();
-//    }
-
-
-
-//    // EFFECTS: returns the number of completed tasks in this project
-//    private int getNumberOfCompletedTasks() {
-//        int done = 0;
-//        for (Task t : tasks) {
-//            if (t.getStatus() == Status.DONE) {
-//                done++;
-//            }
-//        }
-//        return done;
-//    }
-
-
-    //    // EFFECTS: returns an unmodifiable list of tasks in this project.
-//    public List<Task> getTasks() {
-//        return Collections.unmodifiableList(tasks);
-//    }
+    }
 }

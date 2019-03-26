@@ -6,6 +6,9 @@ import model.exceptions.EmptyStringException;
 import model.exceptions.NullArgumentException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class testProject {
@@ -423,6 +426,45 @@ public class testProject {
         } catch (NegativeInputException e) {
             //
         }
+    }
+
+
+    @Test
+    void testIterator() {
+        Task task11 = new Task("aaa");
+        task11.setPriority(new Priority(1));
+        project.add(task11);
+        project.add(new Task("a"));
+        project.add(new Project("234"));
+        project.add(new Project("1231231"));
+        Iterator<Todo> iterator = project.iterator();
+
+        assertTrue(iterator.hasNext());
+        System.out.println(iterator.next());
+        assertTrue(iterator.hasNext());
+        System.out.println(iterator.next());
+        assertTrue(iterator.hasNext());
+        System.out.println(iterator.next());
+        assertTrue(iterator.hasNext());
+        System.out.println(iterator.next());
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    void abc() {
+        Task task11 = new Task("aaa");
+        task11.setPriority(new Priority(1));
+        Project project1 = new Project("1qsx");
+        project1.setPriority(new Priority(2));
+        project.add(task11);
+        project.add(project1);
+        project.add(new Task("a"));
+        project.add(new Project("234"));
+        project.add(new Project("1231231"));
+        for (Todo t : project) {
+            System.out.println(t.priority);
+        }
+
     }
 
 }
