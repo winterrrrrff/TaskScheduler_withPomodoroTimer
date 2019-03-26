@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import model.Task;
-import pomodoro.PomodoroApp;
+//import pomodoro.PomodoroApp;
 import ui.EditTask;
 import ui.ListView;
 import utility.JsonFileIO;
@@ -145,7 +145,7 @@ public class TodobarController implements Initializable {
     private void openPomodoro() {
         Logger.log("ActionPopUpController", "No action is implemented for the selected option");
         String[] s = "sampleStringArray".split("");
-        PomodoroApp.main(s);
+        //PomodoroApp.main(s);
     }
 
     private class OptionPopUpController {

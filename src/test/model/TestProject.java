@@ -1512,5 +1512,22 @@ public class TestProject {
         }
     }
 
+    @Test
+    void addTry1() {
+        Project project = new Project("a");
+        project.add(project);
+        assertEquals(0,project.getNumberOfTasks());
+    }
+
+    @Test
+    void addTry2() {
+        Project project = new Project("a");
+        Task task1 = new Task("1");
+        project.add(task1);
+        project.add(project);
+        project.add(task1);
+        assertEquals(1,project.getNumberOfTasks());
+    }
+
 
 }

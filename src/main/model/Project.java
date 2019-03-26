@@ -167,12 +167,7 @@ public class Project extends Todo implements Iterable<Todo> {
             }
             reset(false);
             return getNextTodo();
-
         }
-
-
     }
-
-
 }
 
