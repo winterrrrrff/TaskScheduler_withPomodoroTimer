@@ -17,7 +17,6 @@ import ui.EditTask;
 import ui.ListView;
 import utility.JsonFileIO;
 import utility.Logger;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
