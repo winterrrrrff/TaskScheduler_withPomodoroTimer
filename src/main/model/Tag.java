@@ -3,10 +3,7 @@ package model;
 import model.exceptions.EmptyStringException;
 import model.exceptions.NullArgumentException;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 // Represents a tag having a name
 public class Tag {
